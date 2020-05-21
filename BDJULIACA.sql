@@ -1,0 +1,182 @@
+drop database BDJULIACA
+go 
+create database BDJULIACA
+go
+use BDJULIACA
+go
+
+CREATE TABLE TIPOUSUARIO (
+IdTipoUsuario		INT IDENTITY(1,1),
+DescTipoUsuario		NVARCHAR(50),
+FechaCreacion		DATETIME
+CONSTRAINT PK_TIPOUSUARIO PRIMARY KEY (IdTipoUsuario)
+)
+go
+CREATE TABLE USUARIO (
+IdUsuario			UNIQUEIDENTIFIER  NOT NULL,
+NomUsuario			NVARCHAR(50),
+ApeUsuario			NVARCHAR(50),
+DNIUsuario			INT,
+TelefUsuario		INT,
+CorreoUsuario		NVARCHAR(50),
+IdDirecUsuario		INT,
+EstadoUsuario		BIT,
+PasswordUsuario		NVARCHAR(100),
+idTipoUsuario		INT,
+FechaCreacion		DATETIME
+CONSTRAINT PK_USUARIO PRIMARY KEY (IdUsuario)
+)
+go
+CREATE TABLE TIENDAS (
+IdTienda			UNIQUEIDENTIFIER  NOT NULL,
+DescTienda			NVARCHAR(200),
+DirecTienda			NVARCHAR(150),
+TelefTienda			INT,
+CorreoTienda		NVARCHAR(50),
+EstadoTienda		BIT,
+IdCiudad			UNIQUEIDENTIFIER,
+FechaCreacion		DATETIME
+CONSTRAINT PK_TIENDAS PRIMARY KEY (IdTienda)
+)
+go
+CREATE TABLE CIUDAD (
+IdCiudad			UNIQUEIDENTIFIER NOT NULL,
+DescCiudad			NVARCHAR(100),
+EstadoCiudad		BIT,
+FechaCreacion		DATETIME,
+CONSTRAINT PK_CIUDAD PRIMARY KEY (IdCiudad)
+)
+go
+CREATE TABLE TIPOSPRODUCTO (
+IdTipoProducto		INT IDENTITY(1,1),
+DescTipoProducto	NVARCHAR(100),
+FechaCreacion		DATETIME,
+EstadoTipoProducto  BIT
+CONSTRAINT PK_TIPOSPORODUCTO PRIMARY KEY (IdTipoProducto)
+)
+go
+CREATE TABLE PRODUCTOS (
+IdProducto			UNIQUEIDENTIFIER NOT NULL,
+DescProducto		NVARCHAR(150),
+PrecProducto		DECIMAL,
+EstadoProducto		BIT,
+IdTipoProducto		INT,
+IMGProducto			BINARY,
+ProductoFileName	VARCHAR(100),
+IdTienda			UNIQUEIDENTIFIER,
+FechaCreacion		DATETIME
+CONSTRAINT PK_PRODUCTOS PRIMARY KEY (IdProducto)
+)
+go
+CREATE TABLE CONFIGURADOR (
+IdConfigurador		UNIQUEIDENTIFIER NOT NULL,
+ColorTienda			NVARCHAR(10),
+FechaCreacion		DATETIME
+CONSTRAINT PK_CONFIGURADOR PRIMARY KEY (IdConfigurador)
+)
+go
+CREATE TABLE BANNER (
+IdBanner			UNIQUEIDENTIFIER NOT NULL,
+IdTienda			UNIQUEIDENTIFIER NOT NULL,
+IMGBanner			BINARY,
+BannerFileName		VARCHAR(100),
+FechaCreacion		DATETIME
+CONSTRAINT PK_BANNER PRIMARY KEY (IdBanner)
+)
+go
+CREATE TABLE TIPOPAGO (
+IdTipoPago			INT IDENTITY(1,1),
+DescPago			NVARCHAR(150),
+EstadoPago			BIT,
+FechaCreacion		DATETIME
+CONSTRAINT PK_TIPOPAGO PRIMARY KEY (IdTipoPago)
+)
+go
+CREATE TABLE PEDIDO (
+IdPedido			UNIQUEIDENTIFIER  NOT NULL,
+IdUsuario			UNIQUEIDENTIFIER not null,
+FechPedido			DATETIME,
+IdTipoPago			INT,
+EstadoPedido		INT,
+FechaCreacion		DATETIME,
+IdDeliveryPrecio	INT
+CONSTRAINT PK_PEDIDO PRIMARY KEY (IdPedido)
+)
+go
+CREATE TABLE PEDIDODETALLE (
+IdPedido			UNIQUEIDENTIFIER NOT NULL,
+IdProducto			UNIQUEIDENTIFIER NOT NULL,
+CantProducto		NUMERIC,
+PrecProducto		DECIMAL
+CONSTRAINT PK_PEDIDODETALLE PRIMARY key (IdPedido)
+)
+go
+CREATE TABLE DIRECUSUARIO (
+IdDirecUsuario		INT,
+IdUsuario			INT,
+Longitud			VARCHAR(50),
+Latitud				VARCHAR(50),
+DescDireccion		VARCHAR(100),
+FechaCreacion		DATETIME
+CONSTRAINT PK_DIRECUSUARIO PRIMARY key (IdDirecUsuario)
+)
+go
+CREATE TABLE DELIVERYPRECIO (
+IdDeliveryPrecio	INT,
+DistanciaDelivery	INT,
+PrecioDelivery		DECIMAL(5,2)
+CONSTRAINT PK_DELIVERYPRECIO PRIMARY key (IdDeliveryPrecio)
+)
+go
+/*
+foraneas USUARIO
+*/
+ALTER TABLE USUARIO
+add CONSTRAINT FK_TipoUsauario_idTipoUsuario FOREIGN KEY (idTipoUsuario)  REFERENCES TIPOUSUARIO(idTipoUsuario);
+go
+/*
+foraneas tiendas
+*/
+ALTER TABLE TIENDAS
+add CONSTRAINT FK_Tiendas_IdCiudad FOREIGN KEY (IdCiudad)  REFERENCES CIUDAD(IdCiudad);
+go
+/*
+foraneas productos
+*/
+ALTER TABLE PRODUCTOS
+add CONSTRAINT FK_Productos_IdTipoProducto FOREIGN KEY (IdTipoProducto)  REFERENCES TIPOSPRODUCTO(IdTipoProducto)
+go
+alter Table Productos
+add CONSTRAINT FK_Productos_IdTienda FOREIGN KEY (IdTienda)  REFERENCES TIENDAS(IdTienda);
+go
+/*
+BANNER
+*/
+ALTER TABLE BANNER
+ADD CONSTRAINT FK_Banner_IdTienda FOREIGN KEY (IdTienda)  REFERENCES TIENDAS(IdTienda);
+go
+
+/*
+PEDIDO
+*/
+ALTER TABLE PEDIDO
+add CONSTRAINT FK_Pedido_IdUsuario FOREIGN KEY (IdUsuario)  REFERENCES Usuario(IdUsuario);
+go
+ALTER TABLE PEDIDO
+add CONSTRAINT FK_Pedido_IdTipoPago FOREIGN KEY (IdTipoPago)  REFERENCES TipoPago(IdTipoPago);
+go
+ALTER TABLE USUARIO
+add CONSTRAINT FK_USUARIO_IdDirecUsuario FOREIGN KEY (IdDirecUsuario)  REFERENCES DIRECUSUARIO(IdDirecUsuario);
+go
+ALTER TABLE PEDIDO
+add CONSTRAINT FK_DELIVERYPRECIO_IdDeliveryPrecio FOREIGN KEY (IdDeliveryPrecio)  REFERENCES DELIVERYPRECIO(IdDeliveryPrecio);
+go
+/*
+DETALLESPEDIDO
+*/
+ALTER TABLE PEDIDODETALLE
+add CONSTRAINT FK_PEDIDODETALLE_IdPedido FOREIGN KEY (IdPedido)  REFERENCES Pedido(IdPedido);
+go
+ALTER TABLE PEDIDODETALLE
+add CONSTRAINT FK_PEDIDODETALLE_IdProducto FOREIGN KEY (IdProducto)  REFERENCES Productos(IdProducto);
+go

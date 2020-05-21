@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7b87b93f0d244bffae64f628d8100ffb" Name="Diagram1">
+        <EntityTypeShape EntityType="BDJULIACAModel.BANNER" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.CIUDAD" Width="1.5" PointX="3.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.CONFIGURADOR" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.DELIVERYPRECIO" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.DIRECUSUARIO" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.PEDIDO" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.PEDIDODETALLE" Width="1.5" PointX="10.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.PRODUCTOS" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.TIENDAS" Width="1.5" PointX="6" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.TIPOPAGO" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.TIPOSPRODUCTO" Width="1.5" PointX="6" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.TIPOUSUARIO" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDJULIACAModel.USUARIO" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="BDJULIACAModel.FK_Banner_IdTienda" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_Tiendas_IdCiudad" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_DELIVERYPRECIO_IdDeliveryPrecio" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_DIRECUSUARIO_IdUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_Pedido_IdTipoPago" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_Pedido_IdUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_PEDIDODETALLE_IdPedido" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_PEDIDODETALLE_IdProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_Productos_IdTienda" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_Productos_IdTipoProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="BDJULIACAModel.FK_TipoUsauario_idTipoUsuario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
